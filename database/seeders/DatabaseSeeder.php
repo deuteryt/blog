@@ -13,11 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $this->command->info('Rozpoczynam seedowanie bazy danych...');
+        
+        // Najpierw kategorie
+        $this->command->info('Tworzę kategorie...');
+        $this->call(MassCategorySeeder::class);
+        
+        // Potem posty (wymagają kategorii)
+        $this->command->info('Tworzę posty...');
+        $this->call(MassPostSeeder::class);
+        
+        $this->command->info('Seedowanie zakończone pomyślnie!');
     }
 }
